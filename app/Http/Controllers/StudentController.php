@@ -38,7 +38,7 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
 <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
                 return $btn;
             })
-                ->rawColumns(['action'])->make(true);
+                ->rawColumns(P['action'])->make(true);
             return $allData;
         }
         return view('add_student_details', compact('students'));
@@ -89,7 +89,7 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
      */
     public function delete($id)
     {
-        $email = Student::where('id', '=', $id)->get()->value('student_email');
+        $email = Student::where('id', '=', $id)->first()->student_email;
         $loginData = User::where('email', $email)->firstOrFail();
         $loginData->delete();
         $data = Student::findOrFail($id);
@@ -191,10 +191,7 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
         }
     }
 
-    public function scanner()
-    {
-        return view('scanner');
-    }
+    
 
     public function getStatus()
     {
@@ -238,5 +235,8 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
         
         return view('student_dashboard',compact('datas','leaveCount','name','dob'));
     }
-
+    public function scanner()
+    {
+        return view('scanner');
+    }
 }
