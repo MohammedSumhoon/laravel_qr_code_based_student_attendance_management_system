@@ -195,7 +195,8 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
 
     public function getStatus()
     {
-        $attendanceStatus = DB::table('students')->leftJoin('attendance_status', 'attendance_status.student_id', '=', 'students.id')
+        $attendanceStatus = DB::table('students')
+            ->leftJoin('attendance_status', 'attendance_status.student_id', '=', 'students.id')
             ->selectRaw("student_name,IF(ISNULL(status)=1,'Absent',status) as status,date,attendance_status.id")
             ->orderBy('students.student_name', 'asc')
             ->orderBy('attendance_status.date', 'desc')
@@ -206,7 +207,10 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
 
     public function generate()
     {
-        QrCode::size(200)->backgroundColor(255, 255, 255)->format('png')->generate('Mohammed sumhoon J', public_path('/students_qrcode/sample.png'));
+        QrCode::size(200)->backgroundColor(255, 255, 255)
+        ->format('png')
+        ->generate('Mohammed sumhoon J', public_path('/students_qrcode/sample.png'));
+        
         return view('generate');
     }
 
