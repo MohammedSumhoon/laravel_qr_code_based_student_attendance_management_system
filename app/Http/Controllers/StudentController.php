@@ -196,7 +196,10 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
     public function getStatus()
     {
         $attendanceStatus = DB::table('students')->leftJoin('attendance_status', 'attendance_status.student_id', '=', 'students.id')
-            ->selectRaw("student_name,IF(ISNULL(status)=1,'Absent',status) as status,date,attendance_status.id")->orderBy('students.student_name', 'asc')->orderBy('attendance_status.date', 'desc')->get();
+            ->selectRaw("student_name,IF(ISNULL(status)=1,'Absent',status) as status,date,attendance_status.id")
+            ->orderBy('students.student_name', 'asc')
+            ->orderBy('attendance_status.date', 'desc')
+            ->get();
 
         return view('show_attendance', compact('attendanceStatus'));
     }
