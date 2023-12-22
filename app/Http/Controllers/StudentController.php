@@ -205,12 +205,15 @@ data-orginal-title="Delete" class="btn btn-danger btn-sm delete deleteItem">
         return view('show_attendance', compact('attendanceStatus'));
     }
 
+    /**
+     * It would generate the QR code.
+     */
     public function generate()
     {
         QrCode::size(200)->backgroundColor(255, 255, 255)
         ->format('png')
         ->generate('Mohammed sumhoon J', public_path('/students_qrcode/sample.png'));
-        
+
         return view('generate');
     }
 
